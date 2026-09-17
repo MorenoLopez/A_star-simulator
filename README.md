@@ -1,93 +1,67 @@
-# A* Pathfinding Visualizer
+# Pathfinding Algorithm Visualizer
 
-An interactive, real-time visualizer for the A* (A-Star) pathfinding algorithm built with Python and Pygame.
+An interactive pathfinding algorithm visualizer built with Python (Pygame). This tool allows you to observe step-by-step how different exploration and optimization algorithms traverse a grid, manage their internal data structures (Queue/Stack), and calculate the shortest path.
 
-This tool dynamically adapts to screen resolutions, provides full GUI control over grid dimensions and node coordinates, supports direct drag-and-drop interaction, and displays the internal state of the priority queue (Open Set) step-by-step.
-
----
-
-## Understanding the A* Algorithm
-
-A* is a graph traversal and path search algorithm that finds the shortest path between a starting node and a target node. It combines the guaranteed optimality of Dijkstra's algorithm with the efficiency of a heuristic-driven search.
-
-### The Core Formula
-
-At each step, A* selects the node $n$ from the priority queue that minimizes the total estimated cost function $f(n)$:
-
-$$f(n) = g(n) + h(n)$$
-
-* **$g(n)$**: The exact cost of the path from the starting node to node $n$.
-* **$h(n)$**: The heuristic function estimating the remaining cost from node $n$ to the target node.
-* **$f(n)$**: The total estimated cost of a path passing through node $n$.
-
-### Heuristic Function: Manhattan Distance
-
-For a grid allowing movement in four cardinal directions (up, down, left, right), A* uses Manhattan distance as its heuristic:
-
-$$h(n) = |x_n - x_{\text{target}}| + |y_n - y_{\text{target}}|$$
-
-This heuristic is **admissible** (it never overestimates the actual cost to reach the target), which guarantees that A* will always find an optimal shortest path if one exists.
-
-### Node Sets
-
-* **Open Set (Priority Queue)**: Discovered nodes waiting to be evaluated, sorted by ascending $f(n)$ values.
-* **Closed Set**: Nodes that have already been evaluated and processed.
-
----
-
-## A* vs. Dijkstra: Key Distinctions
-
-* **Dijkstra's Algorithm** is equivalent to A* without a heuristic ($h(n) = 0$). It expands outward in uniform, concentric circles regardless of target direction.
-* **A* Search** uses $h(n)$ to direct exploration toward the target.
-
-### Behavior on Empty Grids
-
-On an obstacle-free grid, every node along a direct path toward the target yields an identical $f(n)$ score. Because candidate nodes share the same priority ($f = \text{constant}$), A* resolves ties based on insertion order into the priority queue. This produces a diagonal sweeping pattern that may superficially resemble Dijkstra's algorithm, even though evaluation remains strictly directional.
+Live Web Version: https://pathfinding-algorithms-visualizer.netlify.app
 
 ---
 
 ## Features
 
-* **Adaptive Fullscreen**: Automatically scales cell size and centers the grid based on screen resolution.
-* **GUI Control Panel**:
-  * Adjust grid dimensions (columns and rows) in real time.
-  * Modify Start and End coordinates using GUI buttons or drag-and-drop.
-* **Interactive Canvas**:
-  * Left-Click: Draw walls / Drag Start (Green) and End (Red) nodes.
-  * Right-Click: Erase walls.
-* **Playback Controls**:
-  * Pause / Play automatic step iteration.
-  * Step forward and backward manually (`<` / `>`).
-  * Reset grid walls and state history.
-* **Real-time Queue Inspection**: Displays current node, reconstructed path, Closed Set, and sorted Open Set entries.
+* Interactive Dropdown Menu: Direct and instant selection of the algorithm to execute.
+* Data Structure Inspector: Real-time visualization of the internal queue state (Open Set / Queue / Stack) along with f, g, h scores.
+* Supported Algorithms:
+  * A* Search (Heuristic + Path cost)
+  * Dijkstra's Algorithm (Shortest path search without heuristic)
+  * Greedy Best-First Search (Heuristic-based search)
+  * Breadth-First Search (BFS) (Breadth-first exploration - FIFO)
+  * Depth-First Search (DFS) (Depth-first exploration - LIFO)
+* Interactive Grid Editor:
+  * Draw and erase walls using the mouse.
+  * Drag and drop Start and End points.
+  * Dynamic grid resizing (Cols / Rows) from the control panel.
+* Simulation Controls: Auto-play, pause, step-by-step navigation (forward/backward), and quick reset.
 
 ---
 
-## Installation & Setup
+## Controls and Shortcuts
+
+### Mouse
+* Left Click + Drag: Draw walls / Drag Start or End node.
+* Right Click + Drag: Erase walls.
+
+### Keyboard
+* Space: Start / Pause simulation.
+* Left Arrow / Right Arrow: Step-by-step navigation (Backward / Forward).
+* R: Reset the grid (Clear all walls).
+
+---
+
+## Installation and Setup
 
 ### Prerequisites
+* Python 3.10+
 
-* Python 3.8+
-* Pygame
+### Steps
 
-### Quick Start
-
+1. Clone the repository:
 ```bash
-# Clone the repository
-git clone https://github.com/user/a-star-sim.git
-cd a-star-sim
+git clone https://github.com/MorenoLopez/pathfinding_algos_visualizer.git
+cd pathfinder-algo-visualizer
+```
 
-# Install dependencies
+2. Install dependencies:
+```bash
 pip install -r requirements.txt
+```
 
-# Run the visualizer
-python a_star_sim.py
+3. Run the application:
+```bash
+python pathfinder_algo_visualizer.py
 ```
 
 ---
 
-## Controls Reference
+## Web Version
 
-* **Left Click**: Draw wall / Drag Start or End nodes.
-* **Right Click**: Erase wall.
-* **Escape Key**: Exit application.
+If you prefer to try the visualizer directly in your browser without installing Python, check out the Netlify deployment: https://pathfinding-algorithms-visualizer.netlify.app
